@@ -1,43 +1,54 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Tables from "./components/layout/OrderTable";
+import React from "react";
+import "./style/index.sass";
+import { Routes, Route } from "react-router-dom";
+import OrderTable from "./components/layout/OrderTable";
+import CategoryTable from "./components/layout/CategoryTable";
+import ProductTable from "./components/layout/ProductTable";
 import LeftSider from "./components/layout/LeftSider";
-import MainHeader from './components/layout/MainHeader';
-import {  Layout} from 'antd';
-  const {  Content, Footer } = Layout;
- 
- 
+import MainHeader from "./components/layout/MainHeader";
+import { Layout } from "antd";
+import Path from "./components/layout/Path";
+
+const { Content, Footer } = Layout;
+
 const App = () => {
   return (
     <Layout>
-        < LeftSider/>
-        <Layout className="site-layout">
-          <MainHeader/>
-          <Content
+      <LeftSider />
+      <Layout className="site-layout">
+        <MainHeader />
+        <Routes>
+          <Route path="/" element={<Path />}>
+            <Route index element={<OrderTable />} />
+            <Route path="about" element={<CategoryTable />} />
+            <Route path="product" element={<ProductTable />} />
+            <Route path="*" element={<ProductTable />} />
+          </Route>
+        </Routes>
+        <Content
+          style={{
+            margin: "0 16px",
+          }}
+        >
+          <div
+            className="site-layout-background"
             style={{
-              margin: '0 16px',
+              padding: 24,
+              minHeight: 360,
             }}
           >
-        
-            <div
-              className="site-layout-background"
-              style={{
-               padding: 24,
-                minHeight: 360,
-              }}
-           >
-              <Tables></Tables>
-            </div>
-          </Content>
-          <Footer
-            style={{
-             textAlign: 'center',
-           }}
-          >
-            <i>Pinky Bakery</i> ©2022 
-          </Footer>
-        </Layout>
+            <></>
+          </div>
+        </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          ©2022 <i>Pinky Bakery</i>
+        </Footer>
       </Layout>
-    );
-  };
-  export default App;
+    </Layout>
+  );
+};
+export default App;

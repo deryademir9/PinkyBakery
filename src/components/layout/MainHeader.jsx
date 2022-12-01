@@ -12,9 +12,10 @@ function MainHeader() {
     <div><Header
     className="site-layout-background"
     style={{
+      // backgroundColor: '#eb84b1',
       padding: 0, 
       //flexgrow: 1
-    }} >  <Avatar size="large" style={{display: 'flex', margin: '18px' , float: 'right'}} icon={<UserOutlined />} /></Header>
+    }} >  <Avatar size="large" style={{ margin: '10px 10px 10px 10px' , float: 'right'}} icon={<UserOutlined />} /></Header>
   </div>
   )
 }

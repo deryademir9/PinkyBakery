@@ -119,7 +119,16 @@ const App = () => {
       dataIndex: "name",
       // width: '30%',
       editable: false
-    }
+    },{
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) =>
+        dataSource.length >= 1 ? (
+          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
   ];
   const handleAdd = () => {
     const newData = {
@@ -164,6 +173,7 @@ const App = () => {
   });
   return (
     <div>
+      <h1>Kategori Tablosu</h1>
       <Button
         onClick={handleAdd}
         type="primary"

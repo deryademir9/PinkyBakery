@@ -99,28 +99,34 @@ const App = () => {
   };
   const defaultColumns = [
     {
-      title: 'name',
-      dataIndex: 'name',
-      width: '30%',
-      editable: true,
+      title: "Ürün Adı",
+      dataIndex: "name",
+      // width: '30%',
+      editable: false
     },
     {
-      title: 'age',
-      dataIndex: 'age',
+      title: "Ürün Açıklaması",
+      dataIndex: "address"
     },
     {
-      title: 'address',
-      dataIndex: 'address',
+      title: "Ürün Fotoğrafı",
+      dataIndex: "address"
     },
     {
-      title: 'operation',
-      dataIndex: 'operation',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
+      title: "Fiyat",
+      dataIndex: "age"
+    },
+    {
+      title: "Stok Bilgisi",
+      dataIndex: "age"
+    },
+    {
+      title: "Kategori",
+      dataIndex: "address"
+    },
+    {
+      title: "Ürün Durumu",
+      dataIndex: "address"
     },
   ];
   const handleAdd = () => {
@@ -166,6 +172,7 @@ const App = () => {
   });
   return (
     <div>
+      <h1>Ürün Tablosu</h1>
       <Button
         onClick={handleAdd}
         type="primary"

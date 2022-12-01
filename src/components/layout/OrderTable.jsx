@@ -92,55 +92,68 @@ const App = () => {
       address: 'London, Park Lane no. 1',
     },
   ]);
-  const [count, setCount] = useState(2);
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  };
+  // const [count, setCount] = useState(2);
+  // const handleDelete = (key) => {
+  //   const newData = dataSource.filter((item) => item.key !== key);
+  //   setDataSource(newData);
+  // };
   const defaultColumns = [
     {
-      title: "Ürün Adı",
-      dataIndex: "name",
+      title: 'Siparis Tarihi',
+      dataIndex: 'name',
       // width: '30%',
-      editable: false
+      // editable: true,
     },
     {
-      title: "Ürün Açıklaması",
-      dataIndex: "address"
+      title: 'TeslimTarihi',
+      dataIndex: 'age',
     },
     {
-      title: "Ürün Fotoğrafı",
-      dataIndex: "address"
+      title: 'SiparisDurum',
+      dataIndex: 'address',
+    },{
+      title: 'MusteriNotu',
+      dataIndex: 'age',
     },
     {
-      title: "Fiyat",
-      dataIndex: "age"
+      title: 'FirmaNotu',
+      dataIndex: 'address',
+    },{
+      title: 'Il',
+      dataIndex: 'age',
     },
     {
-      title: "Stok Bilgisi",
-      dataIndex: "age"
+      title: 'AcikAdres',
+      dataIndex: 'address',
+    },{
+      title: 'Telefon',
+      dataIndex: 'age',
     },
     {
-      title: "Kategori",
-      dataIndex: "address"
+      title: 'Ad',
+      dataIndex: 'address',
+    },{
+      title: 'Soyad',
+      dataIndex: 'age',
     },
     {
-      title: "Ürün Durumu",
-      dataIndex: "address"
+      title: 'ToplamFiyat',
+      dataIndex: 'address',
     },
-    {
-      title: "operation",
-      dataIndex: "operation",
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null
-    }
+    
+    // {
+    //   title: "operation",
+    //   dataIndex: "operation",
+    //   render: (_, record) =>
+    //     dataSource.length >= 1 ? (
+    //       <Popconfirm
+    //         title="Sure to delete?"
+    //         onConfirm={() => handleDelete(record.key)}
+    //       >
+    //         <a>Delete</a>
+    //       </Popconfirm>
+    //     ) : null
+    // }
   ];
 //   const handleAdd = () => {
 //     const newData = {
@@ -194,6 +207,7 @@ const App = () => {
       >
         Add a row
       </Button> */}
+      <h1>Sipariş Tablosu</h1>
       <Table
         components={components}
         rowClassName={() => 'editable-row'}

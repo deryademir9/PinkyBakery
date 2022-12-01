@@ -10,7 +10,7 @@ const App = () => (
         <Tooltip title="Extra information">
           <InfoCircleOutlined
             style={{
-              color: "rgba(0,0,0,.45)"
+              color: "rgba(0,0,0,.45)",
             }}
           />
         </Tooltip>
