@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./index.css";
 import { Button, Modal } from "antd";
 const App = () => {
   const [open, setOpen] = useState(false);

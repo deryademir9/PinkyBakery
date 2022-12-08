@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Select, Form, Input, Popconfirm, Table } from "antd";
+
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
@@ -43,7 +44,7 @@ const EditableCell = ({
         ...values,
       });
     } catch (errInfo) {
-      console.log('Save failed:', errInfo);
+      console.log("Save failed:", errInfo);
     }
   };
   let childNode = children;
@@ -80,16 +81,16 @@ const EditableCell = ({
 const App = () => {
   const [dataSource, setDataSource] = useState([
     {
-      key: '0',
-      name: 'Edward King 0',
-      age: '32',
-      address: 'London, Park Lane no. 0',
+      key: "0",
+      name: "Edward King 0",
+      age: "32",
+      address: "London, Park Lane no. 0",
     },
     {
-      key: '1',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
+      key: "1",
+      name: "Edward King 1",
+      age: "32",
+      address: "London, Park Lane no. 1",
     },
   ]);
   // const [count, setCount] = useState(2);
@@ -97,74 +98,92 @@ const App = () => {
   //   const newData = dataSource.filter((item) => item.key !== key);
   //   setDataSource(newData);
   // };
+
   const defaultColumns = [
     {
-      title: 'Siparis Tarihi',
-      dataIndex: 'name',
+      title: "Siparis Tarihi",
+      dataIndex: "name",
       // width: '30%',
       // editable: true,
     },
     {
-      title: 'TeslimTarihi',
-      dataIndex: 'age',
+      title: "TeslimTarihi",
+      dataIndex: "age",
     },
     {
-      title: 'SiparisDurum',
-      dataIndex: 'address',
-    },{
-      title: 'MusteriNotu',
-      dataIndex: 'age',
+      title: "SiparisDurum",
+      dataIndex: "address",
+      render: (text, record, index) => {
+        // console.log(record);
+
+        return (
+          <Select
+            value={"1"}
+            style={{
+              width: 120,
+            }}
+            // onChange={handleChange}
+            options={[
+              {
+                value: "1",
+                label: "Hazırlanıyor",
+              },
+              {
+                value: "2",
+                label: "Yolda",
+              },
+              {
+                value: "3",
+                label: "Teslim Edildi",
+              },
+            ]}
+          />
+        );
+      },
     },
     {
-      title: 'FirmaNotu',
-      dataIndex: 'address',
-    },{
-      title: 'Il',
-      dataIndex: 'age',
+      title: "MusteriNotu",
+      dataIndex: "age",
     },
     {
-      title: 'AcikAdres',
-      dataIndex: 'address',
-    },{
-      title: 'Telefon',
-      dataIndex: 'age',
+      title: "FirmaNotu",
+      dataIndex: "address",
     },
     {
-      title: 'Ad',
-      dataIndex: 'address',
-    },{
-      title: 'Soyad',
-      dataIndex: 'age',
+      title: "Il",
+      dataIndex: "age",
     },
     {
-      title: 'ToplamFiyat',
-      dataIndex: 'address',
+      title: "AcikAdres",
+      dataIndex: "address",
     },
-    
-    // {
-    //   title: "operation",
-    //   dataIndex: "operation",
-    //   render: (_, record) =>
-    //     dataSource.length >= 1 ? (
-    //       <Popconfirm
-    //         title="Sure to delete?"
-    //         onConfirm={() => handleDelete(record.key)}
-    //       >
-    //         <a>Delete</a>
-    //       </Popconfirm>
-    //     ) : null
-    // }
+    {
+      title: "Telefon",
+      dataIndex: "age",
+    },
+    {
+      title: "Ad",
+      dataIndex: "address",
+    },
+    {
+      title: "Soyad",
+      dataIndex: "age",
+    },
+    {
+      title: "ToplamFiyat",
+      dataIndex: "address",
+    },
   ];
-//   const handleAdd = () => {
-//     const newData = {
-//       key: count,
-//       name: `Edward King ${count}`,
-//       age: '32',
-//       address: `London, Park Lane no. ${count}`,
-//     };
-//     setDataSource([...dataSource, newData]);
-//     setCount(count + 1);
-//   };
+  //   const handleAdd = () => {
+  //     const newData = {
+  //       key: count,
+  //       name: `Edward King ${count}`,
+  //       age: '32',
+  //       address: `London, Park Lane no. ${count}`,
+  //     };
+  //     setDataSource([...dataSource, newData]);
+  //     setCount(count + 1);
+  //   };
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -210,7 +229,7 @@ const App = () => {
       <h1>Sipariş Tablosu</h1>
       <Table
         components={components}
-        rowClassName={() => 'editable-row'}
+        rowClassName={() => "editable-row"}
         bordered
         dataSource={dataSource}
         columns={columns}

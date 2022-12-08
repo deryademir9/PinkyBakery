@@ -81,7 +81,8 @@ const App = () => {
   const [dataSource, setDataSource] = useState([
     {
       key: "0",
-      name: "Vegan"
+      name: "Vegan",
+      
     },
     {
       key: "1",
@@ -118,7 +119,7 @@ const App = () => {
       title: "Kategori Adı",
       dataIndex: "name",
       // width: '30%',
-      editable: false
+      editable: true
     },{
       title: 'operation',
       dataIndex: 'operation',
@@ -133,9 +134,7 @@ const App = () => {
   const handleAdd = () => {
     const newData = {
       key: count,
-      name: `Edward King ${count}`,
-      age: "32",
-      address: `London, Park Lane no. ${count}`
+      name: `Düzenlemek için tıklayınız.`,
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
