@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Form, Input, Popconfirm, Table } from "antd";
+import { store } from "../../store/CategoryStore";
+import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
+
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
@@ -31,7 +35,7 @@ const EditableCell = ({
   const toggleEdit = () => {
     setEditing(!editing);
     form.setFieldsValue({
-      [dataIndex]: record[dataIndex]
+      [dataIndex]: record[dataIndex],
     });
   };
   const save = async () => {
@@ -40,7 +44,7 @@ const EditableCell = ({
       toggleEdit();
       handleSave({
         ...record,
-        ...values
+        ...values,
       });
     } catch (errInfo) {
       console.log("Save failed:", errInfo);
@@ -51,14 +55,14 @@ const EditableCell = ({
     childNode = editing ? (
       <Form.Item
         style={{
-          margin: 0
+          margin: 0,
         }}
         name={dataIndex}
         rules={[
           {
             required: true,
-            message: `${title} is required.`
-          }
+            message: `${title} is required.`,
+          },
         ]}
       >
         <Input ref={inputRef} onPressEnter={save} onBlur={save} />
@@ -67,7 +71,7 @@ const EditableCell = ({
       <div
         className="editable-cell-value-wrap"
         style={{
-          paddingRight: 24
+          paddingRight: 24,
         }}
         onClick={toggleEdit}
       >
@@ -79,35 +83,34 @@ const EditableCell = ({
 };
 const App = () => {
   const [dataSource, setDataSource] = useState([
-    {
-      key: "0",
-      name: "Vegan",
-      
-    },
-    {
-      key: "1",
-      name: "Baklavalar"
-    },
-    {
-      key: "2",
-      name: "Sütlü tatlılar"
-    },
-    {
-      key: "3",
-      name: "EKurabiyeler"
-    },
-    {
-      key: "4",
-      name: "Şerbetli Tatlılar"
-    },
-    {
-      key: "5",
-      name: "Çikolatalar ve Lokumlar"
-    },
-    {
-      key: "6",
-      name: "Yılbaşı Özel"
-    }
+    // {
+    //   key: "0",
+    //   name: "Vegan",
+    // },
+    // {
+    //   key: "1",
+    //   name: "Baklavalar"
+    // },
+    // {
+    //   key: "2",
+    //   name: "Sütlü tatlılar"
+    // },
+    // {
+    //   key: "3",
+    //   name: "EKurabiyeler"
+    // },
+    // {
+    //   key: "4",
+    //   name: "Şerbetli Tatlılar"
+    // },
+    // {
+    //   key: "5",
+    //   name: "Çikolatalar ve Lokumlar"
+    // },
+    // {
+    //   key: "6",
+    //   name: "Yılbaşı Özel"
+    // }
   ]);
   const [count, setCount] = useState(2);
   const handleDelete = (key) => {
@@ -117,15 +120,17 @@ const App = () => {
   const defaultColumns = [
     {
       title: "Kategori Adı",
-      dataIndex: "name",
-      // width: '30%',
-      editable: true
-    },{
-      title: 'operation',
-      dataIndex: 'operation',
+      dataIndex: "Ad",
+      editable: true,
+    },
+    {
+      title: "operation",
       render: (_, record) =>
         dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => handleDelete(record.key)}
+          >
             <a>Delete</a>
           </Popconfirm>
         ) : null,
@@ -145,15 +150,15 @@ const App = () => {
     const item = newData[index];
     newData.splice(index, 1, {
       ...item,
-      ...row
+      ...row,
     });
     setDataSource(newData);
   };
   const components = {
     body: {
       row: EditableRow,
-      cell: EditableCell
-    }
+      cell: EditableCell,
+    },
   };
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
@@ -166,10 +171,17 @@ const App = () => {
         editable: col.editable,
         dataIndex: col.dataIndex,
         title: col.title,
-        handleSave
-      })
+        handleSave,
+      }),
     };
   });
+
+  useEffect(() => {
+    store.fetchData();
+  }, []);
+
+  console.log(toJS(store.data));
+
   return (
     <div>
       <h1>Kategori Tablosu</h1>
@@ -177,7 +189,7 @@ const App = () => {
         onClick={handleAdd}
         type="primary"
         style={{
-          marginBottom: 16
+          marginBottom: 16,
         }}
       >
         Add a row
@@ -186,15 +198,13 @@ const App = () => {
         components={components}
         rowClassName={() => "editable-row"}
         bordered
-        dataSource={dataSource}
-        columns={columns}
+        dataSource={store.data} // çektiğim apiyi oturtuyorum
+        columns={defaultColumns}
       />
     </div>
   );
 };
-export default App;
-
-
+export default observer(App);
 
 // import React, { useContext, useEffect, useRef, useState } from 'react';
 // import { Button, Form, Input, Popconfirm, Table } from 'antd';
