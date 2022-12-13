@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Select, Form, Input, Popconfirm, Table } from "antd";
+import { orderstore } from "../../store/OrderStore";
+import { toJS } from "mobx";
+import { observer } from "mobx-react-lite";
 
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
@@ -102,76 +105,76 @@ const App = () => {
   const defaultColumns = [
     {
       title: "Siparis Tarihi",
-      dataIndex: "name",
+      dataIndex: "SiparisTarihi",
       // width: '30%',
       // editable: true,
     },
     {
       title: "TeslimTarihi",
-      dataIndex: "age",
+      dataIndex: "TeslimTarihi",
     },
     {
       title: "SiparisDurum",
-      dataIndex: "address",
-      render: (text, record, index) => {
-        // console.log(record);
+      dataIndex:"SiparisDurumID",
+      // render: (text, record, index) => {
+      //   // console.log(record);
 
-        return (
-          <Select
-            value={"1"}
-            style={{
-              width: 120,
-            }}
-            // onChange={handleChange}
-            options={[
-              {
-                value: "1",
-                label: "Hazırlanıyor",
-              },
-              {
-                value: "2",
-                label: "Yolda",
-              },
-              {
-                value: "3",
-                label: "Teslim Edildi",
-              },
-            ]}
-          />
-        );
-      },
+      //   return (
+      //     <Select
+      //       value={"1"}
+      //       style={{
+      //         width: 120,
+      //       }}
+      //       // onChange={handleChange}
+      //       options={[
+      //         {
+      //           value: "1",
+      //           label: "Hazırlanıyor",
+      //         },
+      //         {
+      //           value: "2",
+      //           label: "Yolda",
+      //         },
+      //         {
+      //           value: "3",
+      //           label: "Teslim Edildi",
+      //         },
+      //       ]}
+      //     />
+      //   );
+      // },
     },
     {
       title: "MusteriNotu",
-      dataIndex: "age",
+      dataIndex: "MusteriNotu",
     },
     {
       title: "FirmaNotu",
-      dataIndex: "address",
+      dataIndex: "FirmaNotu",
     },
     {
       title: "Il",
-      dataIndex: "age",
+      dataIndex: "IlID",
     },
     {
       title: "AcikAdres",
-      dataIndex: "address",
+      dataIndex: "AcikAdres",
     },
     {
       title: "Telefon",
-      dataIndex: "age",
+      dataIndex: "Telefon",
     },
     {
       title: "Ad",
-      dataIndex: "address",
+      dataIndex: "Ad",
     },
     {
       title: "Soyad",
-      dataIndex: "age",
+      dataIndex: "Soyad",
     },
     {
       title: "ToplamFiyat",
-      dataIndex: "address",
+      dataIndex: "ToplamFiyat",
     },
   ];
   //   const handleAdd = () => {
@@ -215,6 +218,13 @@ const App = () => {
       }),
     };
   });
+  
+  useEffect(() => {
+    orderstore.fetchOrderData();
+  }, []);
+
+  console.log(toJS(orderstore.data));
+
   return (
     <div>
       {/* <Button
@@ -231,10 +241,10 @@ const App = () => {
         components={components}
         rowClassName={() => "editable-row"}
         bordered
-        dataSource={dataSource}
+        dataSource={orderstore.data}
         columns={columns}
       />
     </div>
   );
 };
-export default App;
+export default observer(App);

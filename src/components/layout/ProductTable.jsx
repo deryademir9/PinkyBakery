@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+import { productstore } from "../../store/ProductStore";
+import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
+import { useEffect } from 'react';
 const originData = [];
 for (let i = 0; i < 100; i++) {
   originData.push({
@@ -84,47 +88,47 @@ const App = () => {
   };
   const columns = [{
     title: "Ürün Adı",
-    dataIndex: "name",
+    dataIndex: "Ad",
     width: '25%',
     editable: true
   },
   {
     title: "Ürün Açıklaması",
-    dataIndex: "address",
+    dataIndex: "Aciklama",
     width: '15%',
     editable: true
 
   },
   {
     title: "Ürün Fotoğrafı",
-    dataIndex: "address",
+    dataIndex:"ResimUrl",
     width: '15%',
     editable: true
   },
   {
     title: "Fiyat",
-    dataIndex: "age",         
+    dataIndex: "Fiyat",         
     width: '15%',
      editable: true
 
   },
   {
     title: "Stok Bilgisi",
-    dataIndex: "age",
+    dataIndex: "StokAdedi",
     width: '15%',
     editable: true
 
   },
   {
     title: "Kategori",
-    dataIndex: "address",
+    dataIndex: "KategoriAd",
     width: '15%',
     editable: true
 
   },
   {
     title: "Ürün Durumu",
-    dataIndex: "address",
+    dataIndex: "UrunDurumuID",
     width: '15%',
     editable: true
 
@@ -172,6 +176,12 @@ const App = () => {
       }),
     };
   });
+  useEffect(()=>{
+    productstore.fetchProductData()
+  },[])
+
+console.log(toJS(productstore.data));
+
   return (
     
     <Form form={form} component={false}> <h1>Ürün Tablosu</h1>
@@ -182,7 +192,7 @@ const App = () => {
           },
         }}
         bordered
-        dataSource={data}
+        dataSource={productstore.data}
         columns={mergedColumns}
         rowClassName="editable-row"
         pagination={{
@@ -192,7 +202,7 @@ const App = () => {
     </Form>
   );
 };
-export default App;
+export default observer(App);
 
 
 

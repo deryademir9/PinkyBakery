@@ -58,17 +58,14 @@ const App = () => {
 export default App;
 
 // dosya: store.js
-//import { observable } from 'mobx';
+// import { observable } from 'mobx';
 // import axios from 'axios';
-
-// const API_URL = 'http://localhost:3500/kategoriList';
-
+// const API_URL = 'http://localhost:3500/siparisList';
 // function MyStore() {
 //  // @observable data = null;
-
 //   // Veri çekme işlemi
 //   const fetchData=()=> {
-//     axios.get('http://localhost:3500/kategoriList').then(response => {
+//     axios.get('http://localhost:3500/siparisList').then(response => {
 //       //this.data = response.data;
 //       console.log(response.data)
 //     }).catch(err => {
@@ -79,7 +76,5 @@ export default App;
 //     <><button onClick={fetchData}>sdggfg</button></>
 //   );
 // }
-
 // //const store = new MyStore();
-
 // export default MyStore;
